@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -138,11 +138,38 @@
       text-decoration: none; font-weight: 700; box-shadow: 0 0 30px var(--glow-a); transition: 0.4s; border: none; cursor: none;
     }
     .btn-mag:hover { background: #fff; transform: translateY(-3px); }
+    .split-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: center; margin-top: 2rem; }
+    .glass-panel { background: var(--glass); border: 1px solid var(--glass-b); border-radius: var(--radius); padding: 2rem; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .member-img { width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 1px solid var(--glass-b); margin-bottom: 0.75rem; }
+    .member-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+
+    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .service-card { border: 1px solid var(--glass-b); border-radius: var(--radius); overflow: hidden; background: var(--glass); }
+    .service-card img { width: 100%; height: 220px; object-fit: cover; opacity: 0.6; }
+    .service-card .body { padding: 1.5rem; }
+
+    .blog-grid-single { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+    .blog-card { border: 1px solid var(--glass-b); border-radius: var(--radius); background: var(--glass); overflow: hidden; }
+    .blog-card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.7; }
+    .blog-card .body { padding: 1.25rem; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; margin-top: 2rem; }
+    .contact-method { border-top: 1px solid var(--glass-b); padding-top: 1rem; margin-top: 1rem; }
+    .c-form { background: var(--glass); border: 1px solid var(--glass-b); border-radius: var(--radius); padding: 2rem; }
+    .c-form label { display: block; margin: 0 0 0.5rem; color: var(--accent); font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; }
+    .c-form input, .c-form textarea {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-b); border-radius: 12px;
+      color: #fff; font-family: inherit; padding: 0.9rem; margin-bottom: 1rem;
+    }
+    .c-form input:focus, .c-form textarea:focus { outline: none; border-color: var(--accent); }
+    .footer-note { padding: 3rem 1rem 5rem; text-align: center; color: var(--muted); border-top: 1px solid var(--glass-b); margin-top: 4rem; }
 
     @media (max-width: 900px) {
       .n-links { display: none; }
       .nav-mobile-hide { display: none !important; }
       .feat-grid { grid-template-columns: 1fr; }
+      .split-grid, .contact-grid { grid-template-columns: 1fr; }
       .mobile-quick-links {
         display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
         padding: 0.75rem 1rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 260;
@@ -178,6 +205,7 @@
       .marquee-item span { font-size: 1.1rem; }
 
       .feat-card { padding: 1.5rem; }
+      .glass-panel, .service-card .body, .blog-card .body, .c-form { padding: 1.25rem; }
       .stats-inner { margin-top: 2rem; }
       .stat { padding: 2rem 0.75rem; }
       .stat-n { font-size: 2.2rem; }
@@ -197,20 +225,20 @@
   <nav id="mainNav">
     <a href="index.html" class="n-logo"><div class="n-logo-mark">B</div> BNL</a>
     <ul class="n-links">
-      <li><a href="#" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="service.html">Services</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="btn-mag nav-mobile-hide" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Get Started</button>
   </nav>
   <div class="mobile-quick-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About</a>
-    <a href="service.html">Services</a>
-    <a href="blog.html">Blog</a>
-    <a href="contact.html">Contact</a>
+    <a href="#hero" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
   </div>
 
   <section id="hero">
@@ -285,6 +313,132 @@
     </div>
   </section>
 
+  <section class="section-wrap" id="about">
+    <div class="s-tag">About BNL</div>
+    <h2 style="font-family:'Clash Display'; font-size: clamp(2rem, 5vw, 3.3rem);">We build for <span class="alt-italic">human connection.</span></h2>
+    <div class="split-grid">
+      <div class="glass-panel">
+        <h3 style="font-family:'Clash Display'; margin-bottom:1rem;">BNL App Founder Story</h3>
+        <p style="color:var(--muted); line-height:1.8;">BNL was founded on the belief that technology should disappear into the background. We bridge the gap between your needs and trusted local experts.</p>
+        <div class="contact-method">
+          <div style="color:var(--accent); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.35rem;">Core Pillars</div>
+          <p style="color:var(--muted); line-height:1.7;">Privacy by Design, Radical Transparency, and sustainable local growth for every neighborhood.</p>
+        </div>
+      </div>
+      <div class="glass-panel" style="padding:0; overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000" alt="About BNL" style="width:100%; height:100%; min-height:320px; object-fit:cover; opacity:0.65;">
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="glass-panel" style="text-align:center;">
+        <div class="member-img"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=500" alt="Elias Thorne"></div>
+        <h4 style="font-family:'Clash Display';">Elias Thorne</h4>
+        <p style="color:var(--accent); font-size:0.8rem;">Chief Architect</p>
+      </div>
+      <div class="glass-panel" style="text-align:center;">
+        <div class="member-img"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&q=80&w=500" alt="Sienna Vance"></div>
+        <h4 style="font-family:'Clash Display';">Sienna Vance</h4>
+        <p style="color:var(--accent); font-size:0.8rem;">Lead Engineering</p>
+      </div>
+      <div class="glass-panel" style="text-align:center;">
+        <div class="member-img"><img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&q=80&w=500" alt="Marcus Wei"></div>
+        <h4 style="font-family:'Clash Display';">Marcus Wei</h4>
+        <p style="color:var(--accent); font-size:0.8rem;">Security Ops</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap" id="services">
+    <div class="s-tag">Services</div>
+    <h2 style="font-family:'Clash Display'; font-size: clamp(2rem, 5vw, 3.3rem);">Find exactly what <span class="alt-italic">you need.</span></h2>
+    <div class="service-grid">
+      <article class="service-card">
+        <img src="https://i.pinimg.com/736x/b6/48/97/b64897e152bc247658bcacba440c77de.jpg" alt="Elite Home Care">
+        <div class="body">
+          <div style="color:var(--accent); font-size:0.75rem; letter-spacing:1px; text-transform:uppercase;">Maintenance</div>
+          <h3 style="font-family:'Clash Display'; margin:0.4rem 0;">Elite Home Care</h3>
+          <p style="color:var(--muted);">Top-rated electrical and plumbing experts available for 24-hour emergency dispatch.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <img src="https://i.pinimg.com/736x/a8/7a/a0/a87aa0ebbf420ec398feca89eec87921.jpg" alt="Device Recovery">
+        <div class="body">
+          <div style="color:var(--accent); font-size:0.75rem; letter-spacing:1px; text-transform:uppercase;">Technology</div>
+          <h3 style="font-family:'Clash Display'; margin:0.4rem 0;">Device Recovery</h3>
+          <p style="color:var(--muted);">Hardware diagnostics and precision repair for workstations and mobile tech.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <img src="https://i.pinimg.com/736x/8e/2d/62/8e2d62ce14dbe30638f5a31c7c38cbfc.jpg" alt="Legal and Permits">
+        <div class="body">
+          <div style="color:var(--accent); font-size:0.75rem; letter-spacing:1px; text-transform:uppercase;">Logistics</div>
+          <h3 style="font-family:'Clash Display'; margin:0.4rem 0;">Legal &amp; Permits</h3>
+          <p style="color:var(--muted);">Streamlined documentation support for municipal permits and tax filings.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-wrap" id="blog">
+    <div class="s-tag">Blog</div>
+    <h2 style="font-family:'Clash Display'; font-size: clamp(2rem, 5vw, 3.3rem);">Insights for the <span class="alt-italic">modern neighbor.</span></h2>
+    <div class="blog-grid-single">
+      <article class="blog-card">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600" alt="Security">
+        <div class="body">
+          <div style="color:var(--accent); font-size:0.75rem; text-transform:uppercase;">Security</div>
+          <h3 style="font-family:'Clash Display'; margin:0.4rem 0;">Zero-Trust Protocols</h3>
+          <p style="color:var(--muted);">Treating every interaction with enterprise-grade encryption.</p>
+        </div>
+      </article>
+      <article class="blog-card">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600" alt="Engineering">
+        <div class="body">
+          <div style="color:var(--accent); font-size:0.75rem; text-transform:uppercase;">Engineering</div>
+          <h3 style="font-family:'Clash Display'; margin:0.4rem 0;">Scaling Emerald Nodes</h3>
+          <p style="color:var(--muted);">Behind the infrastructure that keeps BNL at 99.9% uptime.</p>
+        </div>
+      </article>
+      <article class="blog-card">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600" alt="Culture">
+        <div class="body">
+          <div style="color:var(--accent); font-size:0.75rem; text-transform:uppercase;">Culture</div>
+          <h3 style="font-family:'Clash Display'; margin:0.4rem 0;">Hyper-Local Economy</h3>
+          <p style="color:var(--muted);">Why keeping resources within the neighborhood is the next big shift.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-wrap" id="contact">
+    <div class="s-tag">Contact</div>
+    <h2 style="font-family:'Clash Display'; font-size: clamp(2rem, 5vw, 3.3rem);">Let's start a <span class="alt-italic">conversation.</span></h2>
+    <div class="contact-grid">
+      <div class="glass-panel">
+        <p style="color:var(--muted); line-height:1.8;">Have questions about BNL's local network or security protocols? Our team is here to help you integrate seamlessly.</p>
+        <div class="contact-method">
+          <div style="color:var(--accent); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px;">Direct Inquiry</div>
+          <div style="font-weight:700; margin-top:0.25rem;">hello@bnl.local</div>
+        </div>
+        <div class="contact-method">
+          <div style="color:var(--accent); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px;">Office HQ</div>
+          <div style="font-weight:700; margin-top:0.25rem;">Silicon Valley, CA</div>
+        </div>
+      </div>
+      <form class="c-form" id="contactForm">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" placeholder="Your name" required>
+        <label for="emailAddress">Email Address</label>
+        <input id="emailAddress" type="email" placeholder="you@example.com" required>
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" placeholder="How can we help your business?" required></textarea>
+        <button type="submit" class="btn-mag" style="width:100%; cursor:pointer;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer-note">© 2026 BNL • Single-page experience with all sections.</footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
     // Cursor
@@ -299,6 +453,15 @@
     window.addEventListener('scroll', () => {
       document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
     });
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.textContent = 'Message Sent!';
+        contactForm.reset();
+      });
+    }
 
     // Three.js Background
     const scene = new THREE.Scene();
@@ -323,205 +486,6 @@
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  </script>
-</body>
-</html> -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BNL • One Platform. Endless Possibilities.</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700,800&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:italic&display=swap" rel="stylesheet">
-
-  <style>
-    /* RESET & CORE STYLES */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:      #020604;
-      --bg2:     #050d0a;
-      --ink:     #e0f7f0;
-      --muted:   rgba(160, 255, 220, 0.45); 
-      --accent:  #00ff95;
-      --accent2: #00e5ff;
-      --glass:   rgba(255, 255, 255, 0.02);
-      --glass-b: rgba(0, 255, 149, 0.15); 
-      --glow-a:  rgba(0, 255, 149, 0.25);
-      --radius:  24px;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg); color: var(--ink);
-      font-family: 'Cabinet Grotesk', sans-serif;
-      overflow-x: hidden; cursor: none;
-    }
-
-    /* CURSOR */
-    #cur { position: fixed; z-index: 9999; pointer-events: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translate(-50%,-50%); transition: width .2s, height .2s; }
-    #cur-ring { position: fixed; z-index: 9998; pointer-events: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--glow-a); transform: translate(-50%,-50%); transition: width .3s, height .3s, border-color .3s; }
-
-    /* BACKGROUND */
-    #bg-canvas { position: fixed; inset: 0; z-index: 1; opacity: 0.35; pointer-events: none; }
-    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.4; z-index: 0; animation: drift 20s infinite alternate; }
-    .blob-1 { width: 800px; height: 800px; background: radial-gradient(circle, var(--glow-a), transparent 70%); top: -10%; left: -10%; }
-    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(50px, 50px) scale(1.1); } }
-
-    /* NAVIGATION */
-    nav#mainNav {
-      position: fixed; top: 0; width: 100%; z-index: 200;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.5rem 3rem; transition: 0.4s;
-    }
-    nav#mainNav.scrolled { background: rgba(2, 6, 4, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-b); padding: 1rem 3rem; }
-    .n-logo { font-family: 'Clash Display'; font-weight: 700; font-size: 1.5rem; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-    .n-logo-mark { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #008f52); border-radius: 8px; display: grid; place-items: center; font-size: 0.8rem; color: #000; }
-    .n-links { display: flex; gap: 2.2rem; list-style: none; }
-    .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: 0.3s; }
-    .n-links a:hover { color: var(--accent); }
-
-    /* SECTION BASICS */
-    section { min-height: 100vh; position: relative; z-index: 10; padding: 10rem 1.5rem 5rem; }
-    .sw { max-width: 1200px; margin: 0 auto; }
-    .hero-title { font-family: 'Clash Display'; font-size: clamp(3.2rem, 9vw, 7rem); font-weight: 800; line-height: 0.95; letter-spacing: -3px; text-align: center; margin-bottom: 2rem; }
-    .alt-italic { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--accent); }
-
-    /* SHARED COMPONENTS */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
-    .card { background: var(--glass); border: 1px solid var(--glass-b); padding: 3rem; border-radius: var(--radius); transition: 0.4s; backdrop-filter: blur(10px); }
-    .card:hover { border-color: var(--accent); transform: translateY(-10px); }
-
-    /* CONTACT FORM */
-    .c-form { max-width: 600px; margin: 0 auto; }
-    .f-group { margin-bottom: 1.5rem; text-align: left; }
-    input, textarea { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-b); padding: 1.2rem; color: #fff; border-radius: 12px; }
-    button { width: 100%; padding: 1.2rem; background: var(--accent); color: #000; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; }
-
-    footer { text-align: center; padding: 5rem 0; border-top: 1px solid var(--glass-b); }
-  </style>
-</head>
-<body>
-
-  <div id="cur"></div>
-  <div id="cur-ring"></div>
-  <canvas id="bg-canvas"></canvas>
-  <div class="blob blob-1"></div>
-
-  <nav id="mainNav">
-    <a href="#home" class="n-logo">
-      <div class="n-logo-mark">B</div> BNL
-    </a>
-    <ul class="n-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <section id="home">
-    <div class="sw">
-      <h1 class="hero-title">One Platform. <br><span class="alt-italic">Endless</span> Possibilities.</h1>
-      <div class="grid">
-        <div class="card"><h3>Hyper-Local</h3><p>Connecting you to the pulse of your immediate neighborhood.</p></div>
-        <div class="card"><h3>Real-Time</h3><p>Updates and services that move at the speed of now.</p></div>
-        <div class="card"><h3>Secure</h3><p>Built with privacy-first protocols for total peace of mind.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="about" style="background: var(--bg2);">
-    <div class="sw">
-      <h2 class="hero-title">Built for <br><span class="alt-italic">Modern</span> Scale</h2>
-      <p style="text-align: center; color: var(--muted); max-width: 800px; margin: 0 auto;">BNL isn't just a directory; it's a neighborhood ecosystem designed to bridge the gap between digital convenience and physical community.</p>
-      <div class="grid">
-        <div class="card"><h3>Our Mission</h3><p>To empower local voices and economies through technology.</p></div>
-        <div class="card"><h3>Our Vision</h3><p>A world where every block is a thriving connected network.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="services">
-    <div class="sw">
-      <h2 class="hero-title">Find Local <br><span class="alt-italic">Excellence</span></h2>
-      <div class="grid">
-        <div class="card"><h3>Home Care</h3><p>The best local pros for every maintenance need.</p></div>
-        <div class="card"><h3>Logistics</h3><p>Neighborhood delivery that actually arrives on time.</p></div>
-        <div class="card"><h3>Wellness</h3><p>From private yoga to local gyms, find your flow.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="blog" style="background: var(--bg2);">
-    <div class="sw">
-      <h2 class="hero-title">Insights & <br><span class="alt-italic">Stories</span></h2>
-      <div class="grid">
-        <div class="card"><h4>The Future of Neighborhoods</h4><p>How hyper-localism is winning in 2026.</p></div>
-        <div class="card"><h4>Security First</h4><p>Why local data stays local.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="sw" style="text-align: center;">
-      <h2 class="hero-title">Let's <br><span class="alt-italic">Talk</span></h2>
-      <form class="c-form" id="contactForm">
-        <div class="f-group"><input type="text" placeholder="Your Name" required></div>
-        <div class="f-group"><input type="email" placeholder="Your Email" required></div>
-        <div class="f-group"><textarea rows="5" placeholder="Your Message"></textarea></div>
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 BNL • One Platform. All rights reserved.</p>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
-    // Custom Cursor Logic
-    const cur = document.getElementById('cur');
-    const ring = document.getElementById('cur-ring');
-    document.addEventListener('mousemove', (e) => {
-      cur.style.left = ring.style.left = e.clientX + 'px';
-      cur.style.top = ring.style.top = e.clientY + 'px';
-    });
-
-    // Nav Background on Scroll
-    window.addEventListener('scroll', () => {
-      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Three.js Background Animation
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const geometry = new THREE.IcosahedronGeometry(15, 2);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff95, wireframe: true, transparent: true, opacity: 0.15 });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-    camera.position.z = 30;
-
-    function animate() {
-      requestAnimationFrame(animate);
-      sphere.rotation.y += 0.0012;
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    // Form Handle
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.innerText = "Message Sent!";
-      btn.style.background = "#fff";
     });
   </script>
 </body>
