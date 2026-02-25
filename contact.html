@@ -46,6 +46,7 @@
     .n-links { display: flex; gap: 2.2rem; list-style: none; }
     .n-links a { font-size: .85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: 0.3s; letter-spacing: 0.05em; }
     .n-links a:hover, .n-links a.active { color: var(--accent); }
+    .nav-mobile-hide { display: block; }
     .mobile-quick-links { display: none; }
 
     /* --- BG CANVAS --- */
@@ -91,6 +92,7 @@
       .contact-grid { grid-template-columns: 1fr; } 
       .c-info h1 { font-size: 3.5rem; }
       .n-links { display: none; }
+      .nav-mobile-hide { display: none !important; }
       .mobile-quick-links {
         display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
         padding: 0.75rem 1rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 260;
@@ -136,7 +138,7 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
-    <div style="width: 100px;"></div> </nav>
+    <div class="nav-mobile-hide" style="width: 100px;"></div> </nav>
   <div class="mobile-quick-links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>

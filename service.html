@@ -39,6 +39,7 @@
     .n-links { display: flex; gap: 2.2rem; list-style: none; }
     .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: 0.3s; }
     .n-links a:hover, .n-links a.active { color: var(--accent); }
+    .nav-mobile-hide { display: block; }
     .mobile-quick-links { display: none; }
 
     /* --- HERO & SEARCH --- */
@@ -100,6 +101,7 @@
 
     @media (max-width: 900px) {
       .n-links { display: none; }
+      .nav-mobile-hide { display: none !important; }
       .trust-grid { grid-template-columns: repeat(2, 1fr); }
       .support-card { border-radius: 30px; flex-direction: column; text-align: center; gap: 20px; }
       .mobile-quick-links {
@@ -164,7 +166,7 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div style="width: 100px;"></div>
+    <div class="nav-mobile-hide" style="width: 100px;"></div>
   </nav>
   <div class="mobile-quick-links">
     <a href="index.html">Home</a>
