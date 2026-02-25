@@ -95,7 +95,7 @@
       .nav-mobile-hide { display: none !important; }
       .mobile-quick-links {
         display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
-        padding: 0.75rem 1rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 260;
+        padding: 0.75rem 1rem; position: fixed; left: 0; right: 0; top: 64px; z-index: 260;
         border-top: 1px solid var(--glass-b); border-bottom: 1px solid var(--glass-b);
         background: rgba(2, 6, 4, 0.88); backdrop-filter: blur(12px);
       }
@@ -106,7 +106,7 @@
       .mobile-quick-links a.active { color: var(--accent); border-color: var(--accent); }
       .mobile-quick-links { scrollbar-width: none; }
       .mobile-quick-links::-webkit-scrollbar { display: none; }
-      body { padding-bottom: 72px; }
+      body { padding-bottom: 0; }
     }
 
     @media (max-width: 768px) {
