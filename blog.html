@@ -126,7 +126,7 @@
     @media (max-width: 900px) {
       .mobile-quick-links {
         display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
-        padding: 0.75rem 1rem; margin-top: 76px; position: relative; z-index: 190;
+        padding: 0.75rem 1rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 260;
         border-top: 1px solid var(--glass-b); border-bottom: 1px solid var(--glass-b);
         background: rgba(2, 6, 4, 0.88); backdrop-filter: blur(12px);
       }
@@ -135,6 +135,7 @@
         padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--glass-b);
       }
       .mobile-quick-links a.active { color: var(--accent); border-color: var(--accent); }
+      body { padding-bottom: 72px; }
     }
 
     @media (max-width: 768px) {
