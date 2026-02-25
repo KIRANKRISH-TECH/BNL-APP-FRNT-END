@@ -46,6 +46,7 @@
     .n-links { display: flex; gap: 2.2rem; list-style: none; }
     .n-links a { font-size: .85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: 0.3s; letter-spacing: 0.05em; }
     .n-links a:hover, .n-links a.active { color: var(--accent); }
+    .mobile-quick-links { display: none; }
 
     /* --- BG CANVAS --- */
     #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.4; pointer-events: none; }
@@ -90,6 +91,17 @@
       .contact-grid { grid-template-columns: 1fr; } 
       .c-info h1 { font-size: 3.5rem; }
       .n-links { display: none; }
+      .mobile-quick-links {
+        display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
+        padding: 0.75rem 1rem; margin-top: 76px; position: relative; z-index: 190;
+        border-top: 1px solid var(--glass-b); border-bottom: 1px solid var(--glass-b);
+        background: rgba(2, 6, 4, 0.88); backdrop-filter: blur(12px);
+      }
+      .mobile-quick-links a {
+        color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.04em;
+        padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--glass-b);
+      }
+      .mobile-quick-links a.active { color: var(--accent); border-color: var(--accent); }
     }
 
     @media (max-width: 768px) {
@@ -124,6 +136,13 @@
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
     <div style="width: 100px;"></div> </nav>
+  <div class="mobile-quick-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="service.html">Services</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
 
   <canvas id="bg-canvas"></canvas>
 

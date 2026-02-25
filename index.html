@@ -55,6 +55,7 @@
     .n-links { display: flex; gap: 2.2rem; list-style: none; }
     .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: 0.3s; }
     .n-links a:hover, .n-links a.active { color: var(--accent); }
+    .mobile-quick-links { display: none; }
 
     /* --- MARQUEE --- */
     .marquee-wrap {
@@ -140,6 +141,17 @@
     @media (max-width: 900px) {
       .n-links { display: none; }
       .feat-grid { grid-template-columns: 1fr; }
+      .mobile-quick-links {
+        display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
+        padding: 0.75rem 1rem; margin-top: 76px; position: relative; z-index: 190;
+        border-top: 1px solid var(--glass-b); border-bottom: 1px solid var(--glass-b);
+        background: rgba(2, 6, 4, 0.88); backdrop-filter: blur(12px);
+      }
+      .mobile-quick-links a {
+        color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.04em;
+        padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--glass-b);
+      }
+      .mobile-quick-links a.active { color: var(--accent); border-color: var(--accent); }
     }
 
     @media (max-width: 768px) {
@@ -190,6 +202,13 @@
     </ul>
     <button class="btn-mag" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Get Started</button>
   </nav>
+  <div class="mobile-quick-links">
+    <a href="#" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="service.html">Services</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <section id="hero">
     <div class="eyebrow">✦ Trusted by 50,000+ users</div>

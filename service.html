@@ -39,6 +39,7 @@
     .n-links { display: flex; gap: 2.2rem; list-style: none; }
     .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: 0.3s; }
     .n-links a:hover, .n-links a.active { color: var(--accent); }
+    .mobile-quick-links { display: none; }
 
     /* --- HERO & SEARCH --- */
     #hero { position: relative; z-index: 10; padding: 12rem 1.5rem 2rem; text-align: center; }
@@ -101,6 +102,17 @@
       .n-links { display: none; }
       .trust-grid { grid-template-columns: repeat(2, 1fr); }
       .support-card { border-radius: 30px; flex-direction: column; text-align: center; gap: 20px; }
+      .mobile-quick-links {
+        display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
+        padding: 0.75rem 1rem; margin-top: 76px; position: relative; z-index: 190;
+        border-top: 1px solid var(--glass-b); border-bottom: 1px solid var(--glass-b);
+        background: rgba(2, 6, 4, 0.88); backdrop-filter: blur(12px);
+      }
+      .mobile-quick-links a {
+        color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.04em;
+        padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--glass-b);
+      }
+      .mobile-quick-links a.active { color: var(--accent); border-color: var(--accent); }
     }
 
     @media (max-width: 768px) {
@@ -153,6 +165,13 @@
     </ul>
     <div style="width: 100px;"></div>
   </nav>
+  <div class="mobile-quick-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="service.html" class="active">Services</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <section id="hero">
     <h1 class="hero-title reveal">

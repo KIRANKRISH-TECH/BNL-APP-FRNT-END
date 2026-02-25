@@ -51,6 +51,7 @@
     .n-links { display: flex; gap: 2.2rem; list-style: none; }
     .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; }
     .n-links a.active { color: var(--accent); }
+    .mobile-quick-links { display: none; }
 
     /* --- BLOG HERO & SEARCH --- */
     #blog-hero { position: relative; z-index: 10; padding: 10rem 1.5rem 2rem; text-align: center; }
@@ -122,6 +123,20 @@
       .n-links { display: none; }
     }
 
+    @media (max-width: 900px) {
+      .mobile-quick-links {
+        display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap;
+        padding: 0.75rem 1rem; margin-top: 76px; position: relative; z-index: 190;
+        border-top: 1px solid var(--glass-b); border-bottom: 1px solid var(--glass-b);
+        background: rgba(2, 6, 4, 0.88); backdrop-filter: blur(12px);
+      }
+      .mobile-quick-links a {
+        color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.04em;
+        padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--glass-b);
+      }
+      .mobile-quick-links a.active { color: var(--accent); border-color: var(--accent); }
+    }
+
     @media (max-width: 768px) {
       body { cursor: auto; }
       #cur, #cur-ring { display: none; }
@@ -168,6 +183,13 @@
     </ul>
     <button style="background: var(--accent); border:none; padding: 0.6rem 1.5rem; border-radius: 100px; font-weight: 700;">Subscribe</button>
   </nav>
+  <div class="mobile-quick-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="service.html">Services</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <header id="blog-hero">
     <h1 class="hero-title">Insights for the <br><span class="alt-italic">Modern Neighbor.</span></h1>
