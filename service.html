@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | BNL • Find Local Excellence</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,800,600&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:italic&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #020604;
+      --bg2:     #050d0a;
+      --ink:     #e0f7f0;
+      --muted:   rgba(160, 255, 220, 0.45); 
+      --accent:  #00ff95;
+      --accent2: #00e5ff;
+      --glass:   rgba(255, 255, 255, 0.03);
+      --glass-b: rgba(0, 255, 149, 0.15); 
+      --glow-a:  rgba(0, 255, 149, 0.25);
+      --radius:  32px;
+    }
+
+    body { background: var(--bg); color: var(--ink); font-family: 'Cabinet Grotesk', sans-serif; overflow-x: hidden; cursor: none; }
+
+    /* --- CURSOR --- */
+    #cur { position: fixed; z-index: 9999; pointer-events: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translate(-50%,-50%); transition: transform 0.1s; }
+    #cur-ring { position: fixed; z-index: 9998; pointer-events: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--glow-a); transform: translate(-50%,-50%); transition: width .3s, height .3s; }
+
+    /* --- NAV --- */
+    nav#mainNav { position: fixed; top: 0; width: 100%; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; transition: 0.4s; }
+    nav#mainNav.scrolled { background: rgba(2, 6, 4, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-b); padding: 1rem 3rem; }
+    .n-logo { font-family: 'Clash Display'; font-weight: 700; font-size: 1.5rem; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .n-logo-mark { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #008f52); border-radius: 8px; display: grid; place-items: center; font-size: 0.8rem; color: #000; font-weight: 800; }
+    .n-links { display: flex; gap: 2.2rem; list-style: none; }
+    .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: 0.3s; }
+    .n-links a:hover, .n-links a.active { color: var(--accent); }
+
+    /* --- HERO & SEARCH --- */
+    #hero { position: relative; z-index: 10; padding: 12rem 1.5rem 2rem; text-align: center; }
+    .hero-title { font-family: 'Clash Display'; font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; line-height: 0.95; letter-spacing: -2px; margin-bottom: 3rem; }
+    .alt-italic { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--accent); }
+
+    .search-container {
+      max-width: 700px; margin: 0 auto; position: relative;
+      background: var(--glass); border: 1px solid var(--glass-b);
+      padding: 8px; border-radius: 100px; backdrop-filter: blur(10px);
+      display: flex; align-items: center; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .search-container:focus-within { border-color: var(--accent); box-shadow: 0 0 30px var(--glow-a); transform: scale(1.02); }
+    .search-input { flex: 1; background: transparent; border: none; padding: 1rem 2rem; color: white; font-family: inherit; font-size: 1.1rem; outline: none; }
+    .search-btn { background: var(--accent); color: #000; border: none; padding: 1rem 2.5rem; border-radius: 100px; font-weight: 700; cursor: none; transition: 0.3s; }
+
+    /* --- FILTER CHIPS --- */
+    .filter-wrap { display: flex; justify-content: center; gap: 10px; margin-top: 2rem; flex-wrap: wrap; position: relative; z-index: 10; }
+    .chip { padding: 0.6rem 1.4rem; border-radius: 100px; border: 1px solid var(--glass-b); background: var(--glass); color: var(--muted); font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s; cursor: none; }
+    .chip:hover, .chip.active { border-color: var(--accent); color: var(--accent); background: rgba(0, 255, 149, 0.05); }
+
+    /* --- CARDS --- */
+    .sw { position: relative; z-index: 10; padding: 5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+    .svc-card { position: relative; height: 500px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--glass-b); background: var(--bg2); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .svc-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+    .svc-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.3; transition: 0.6s; filter: grayscale(100%); }
+    .svc-card:hover .svc-img { opacity: 0.5; filter: grayscale(0%); transform: scale(1.1); }
+    .svc-float { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(2, 6, 4, 0.6); backdrop-filter: blur(15px); border: 1px solid var(--glass-b); border-radius: 20px; padding: 2rem; transition: 0.4s; z-index: 5; }
+    .svc-card:hover .svc-float { background: rgba(0, 255, 149, 0.05); border-color: var(--accent); }
+    .svc-category { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 0.75rem; display: block; }
+    .svc-card h3 { font-family: 'Clash Display'; font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .svc-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+    /* --- TRUST METRICS --- */
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--glass-b); border: 1px solid var(--glass-b); border-radius: 20px; overflow: hidden; margin: 4rem 0; }
+    .metric { background: var(--bg); padding: 2rem; text-align: center; }
+    .metric-val { display: block; font-family: 'Clash Display'; font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .metric-lab { font-size: 0.7rem; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; }
+
+    /* --- LIVE SUPPORT CARD --- */
+    .support-card {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--glass); border: 1px solid var(--glass-b);
+      padding: 2rem 3rem; border-radius: 100px; margin: 4rem 0;
+    }
+    .support-info { display: flex; align-items: center; gap: 20px; }
+    .pulse { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); animation: blink 1.5s infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* --- CTA --- */
+    .cta-banner { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #000; border-radius: var(--radius); padding: 5rem 3rem; text-align: center; margin-top: 5rem; }
+    .cta-banner h2 { font-family: 'Clash Display'; font-size: 3rem; line-height: 1; margin-bottom: 1.5rem; }
+
+    #bg-canvas { position: fixed; inset: 0; z-index: 1; opacity: 0.2; pointer-events: none; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .support-card { border-radius: 30px; flex-direction: column; text-align: center; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="mainNav">
+    <a href="index.html" class="n-logo"><div class="n-logo-mark">B</div> BNL</a>
+    <ul class="n-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="service.html" class="active">Services</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div style="width: 100px;"></div>
+  </nav>
+
+  <section id="hero">
+    <h1 class="hero-title reveal">
+      Find <span class="alt-italic">exactly</span> what <br> you're looking for.
+    </h1>
+    
+    <div class="search-container reveal">
+      <input type="text" class="search-input" placeholder="search for services, locations, or providers...">
+      <button class="search-btn">Search BNL</button>
+    </div>
+
+    <div class="filter-wrap reveal">
+      <button class="chip active">All Services</button>
+      <button class="chip">Automotive</button>
+      <button class="chip">Wellness</button>
+      <button class="chip">Home Design</button>
+      <button class="chip">Freelance</button>
+    </div>
+  </section>
+
+  <div class="sw">
+    <div class="trust-grid reveal">
+      <div class="metric"><span class="metric-val">99.9%</span><span class="metric-lab">Uptime</span></div>
+      <div class="metric"><span class="metric-val">12k+</span><span class="metric-lab">Experts</span></div>
+      <div class="metric"><span class="metric-val">4.9/5</span><span class="metric-lab">Rating</span></div>
+      <div class="metric"><span class="metric-val">&lt; 10m</span><span class="metric-lab">Response</span></div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="svc-card reveal">
+        <img src="https://i.pinimg.com/736x/b6/48/97/b64897e152bc247658bcacba440c77de.jpg" class="svc-img">
+        <div class="svc-float">
+          <span class="svc-category">Maintenance</span>
+          <h3>Elite Home Care</h3>
+          <p>Top-rated electrical and plumbing experts available for 24-hour emergency dispatch.</p>
+        </div>
+      </div>
+      <div class="svc-card reveal">
+        <img src="https://i.pinimg.com/736x/a8/7a/a0/a87aa0ebbf420ec398feca89eec87921.jpg" class="svc-img">
+        <div class="svc-float">
+          <span class="svc-category">Technology</span>
+          <h3>Device Recovery</h3>
+          <p>Hardware diagnostics and precision repair for professional workstations and mobile tech.</p>
+        </div>
+      </div>
+      <div class="svc-card reveal">
+        <img src="https://i.pinimg.com/736x/8e/2d/62/8e2d62ce14dbe30638f5a31c7c38cbfc.jpg" class="svc-img">
+        <div class="svc-float">
+          <span class="svc-category">Logistics</span>
+          <h3>Legal & Permits</h3>
+          <p>Streamlined documentation assistance for municipal permits and tax filings.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="support-card reveal">
+      <div class="support-info">
+        <div class="pulse"></div>
+        <div>
+          <h4 style="font-family:'Clash Display'">BNL Concierge is Online</h4>
+          <p style="color:var(--muted); font-size:0.85rem;">Need help finding a specific expert?</p>
+        </div>
+      </div>
+      <button class="chip active">Chat with us</button>
+    </div>
+
+    <div class="cta-banner reveal">
+      <h2>Are you a <span style="font-style: italic; font-weight: 400;">Service Excellence</span> expert?</h2>
+      <button class="search-btn" style="background: #000; color: #fff; margin-top:20px;">Register as Provider</button>
+    </div>
+  </div>
+
+  <footer style="padding: 4rem; text-align: center; border-top: 1px solid var(--glass-b); margin-top: 4rem;">
+    <p style="color:var(--muted); font-size: 0.8rem;">© 2026 BNL • Securely connecting neighborhoods.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    document.addEventListener('mousemove', (e) => {
+      cur.style.left = ring.style.left = e.clientX + 'px';
+      cur.style.top = ring.style.top = e.clientY + 'px';
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('on'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const geo = new THREE.IcosahedronGeometry(20, 1);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x00ff95, wireframe: true, transparent: true, opacity: 0.05 });
+    const mesh = new THREE.Mesh(geo, mat);
+    scene.add(mesh);
+    camera.position.z = 40;
+    function animate() { requestAnimationFrame(animate); mesh.rotation.y += 0.001; renderer.render(scene, camera); }
+    animate();
+  </script>
+</body>
+</html>

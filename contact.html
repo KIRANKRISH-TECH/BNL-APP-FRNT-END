@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | BNL • Let's Talk</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700,800&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #020604;
+      --accent: #00ff95;
+      --accent2: #00e5ff;
+      --ink: #e0f7f0;
+      --muted: rgba(160, 255, 220, 0.45);
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-b: rgba(0, 255, 149, 0.15);
+      --glow-a: rgba(0, 255, 149, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { 
+      background: var(--bg); 
+      color: var(--ink); 
+      font-family: 'Cabinet Grotesk', sans-serif; 
+      overflow-x: hidden;
+    }
+
+    /* --- NAVIGATION --- */
+    nav#mainNav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 3rem; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    nav#mainNav.scrolled {
+      background: rgba(2, 6, 4, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-b);
+      padding: 1rem 3rem;
+    }
+    .n-logo { font-family: 'Clash Display'; font-weight: 700; font-size: 1.5rem; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .n-logo-mark { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #008f52); border-radius: 8px; display: grid; place-items: center; font-size: 0.8rem; color: #000; }
+    .n-links { display: flex; gap: 2.2rem; list-style: none; }
+    .n-links a { font-size: .85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: 0.3s; letter-spacing: 0.05em; }
+    .n-links a:hover, .n-links a.active { color: var(--accent); }
+
+    /* --- BG CANVAS --- */
+    #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.4; pointer-events: none; }
+
+    /* --- CONTACT SECTION --- */
+    .sw { max-width: 1100px; margin: 0 auto; padding: 10rem 2rem 5rem; position: relative; z-index: 10; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
+
+    .c-info h1 { font-family: 'Clash Display'; font-size: 4.5rem; line-height: 0.9; margin-bottom: 2rem; letter-spacing: -2px; }
+    .c-info p { color: var(--muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 3rem; max-width: 400px; }
+
+    .contact-method { margin-top: 2rem; border-top: 1px solid var(--glass-b); padding-top: 2rem; }
+    .contact-label { color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; display: block; }
+    .contact-val { font-size: 1.2rem; font-weight: 700; }
+
+    /* --- GLASS FORM --- */
+    .c-form { 
+      background: var(--glass); 
+      border: 1px solid var(--glass-b); 
+      padding: 3rem; 
+      border-radius: 32px; 
+      backdrop-filter: blur(20px); 
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .f-group { margin-bottom: 1.5rem; }
+    label { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; color: var(--accent); opacity: 0.8; }
+    
+    input, textarea {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-b);
+      padding: 1rem; border-radius: 12px; color: white; font-family: inherit; transition: 0.3s;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); background: rgba(0, 255, 149, 0.08); box-shadow: 0 0 15px var(--glow-a); }
+
+    .s-btn {
+      width: 100%; padding: 1.2rem; border-radius: 100px; border: none;
+      background: var(--accent); color: #000; font-weight: 800; font-size: 1rem;
+      cursor: pointer; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .s-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 255, 149, 0.4); background: #fff; }
+
+    @media (max-width: 900px) { 
+      .contact-grid { grid-template-columns: 1fr; } 
+      .c-info h1 { font-size: 3.5rem; }
+      .n-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav">
+    <a href="index.html" class="n-logo"><div class="n-logo-mark">B</div> BNL</a>
+    <ul class="n-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div style="width: 100px;"></div> </nav>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="sw">
+    <div class="contact-grid">
+      <div class="c-info">
+        <h1>Let's start a <br><span style="color:var(--accent)">conversation.</span></h1>
+        <p>Have questions about BNL's local network or security protocols? Our team is here to help you integrate seamlessly.</p>
+        
+        <div class="contact-method">
+          <span class="contact-label">Direct Inquiry</span>
+          <div class="contact-val">hello@bnl.local</div>
+        </div>
+
+        <div class="contact-method" style="border:none; padding-top:1rem;">
+          <span class="contact-label">Office HQ</span>
+          <div class="contact-val">Silicon Valley, CA</div>
+        </div>
+      </div>
+
+      <form class="c-form" id="contactForm">
+        <div class="f-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="*****" required>
+        </div>
+        <div class="f-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="****@example.com" required>
+        </div>
+        <div class="f-group">
+          <label>Message</label>
+          <textarea rows="5" placeholder="How can we help your business?" required></textarea>
+        </div>
+        <button type="submit" class="s-btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Navigation Scroll Effect
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50) document.getElementById('mainNav').classList.add('scrolled');
+      else document.getElementById('mainNav').classList.remove('scrolled');
+    });
+
+    // Three.js Abstract Background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const geometry = new THREE.TorusKnotGeometry(12, 3, 150, 20);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff95, wireframe: true, transparent: true, opacity: 0.12 });
+    const knot = new THREE.Mesh(geometry, material);
+    scene.add(knot);
+
+    camera.position.z = 40;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      knot.rotation.y += 0.0015;
+      knot.rotation.x += 0.0005;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Form Handle
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.innerText = "Message Sent!";
+      btn.style.background = "#fff";
+      e.target.reset();
+    });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

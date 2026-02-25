@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BNL • One Platform. Endless Possibilities.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700,800&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:italic&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #020604;
+      --bg2:     #050d0a;
+      --ink:     #e0f7f0;
+      --muted:   rgba(160, 255, 220, 0.45); 
+      --accent:  #00ff95;
+      --accent2: #00e5ff;
+      --glass:   rgba(255, 255, 255, 0.02);
+      --glass-b: rgba(0, 255, 149, 0.15); 
+      --glow-a:  rgba(0, 255, 149, 0.25);
+      --radius:  24px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--ink);
+      font-family: 'Cabinet Grotesk', sans-serif;
+      overflow-x: hidden; cursor: none;
+    }
+
+    /* --- CURSOR --- */
+    #cur { position: fixed; z-index: 9999; pointer-events: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+    #cur-ring { position: fixed; z-index: 9998; pointer-events: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--glow-a); transform: translate(-50%,-50%); transition: width .3s, height .3s, border-color .3s; }
+
+    /* --- BACKGROUND --- */
+    #bg-canvas { position: fixed; inset: 0; z-index: 1; opacity: 0.35; pointer-events: none; }
+    #aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.4; animation: drift 20s infinite alternate; }
+    .blob-1 { width: 800px; height: 800px; background: radial-gradient(circle, var(--glow-a), transparent 70%); top: -10%; left: -10%; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(50px, 50px) scale(1.1); } }
+
+    /* --- NAV --- */
+    nav#mainNav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 3rem; transition: 0.4s;
+    }
+    nav#mainNav.scrolled { background: rgba(2, 6, 4, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-b); padding: 1rem 3rem; }
+    .n-logo { font-family: 'Clash Display'; font-weight: 700; font-size: 1.5rem; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .n-logo-mark { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #008f52); border-radius: 8px; display: grid; place-items: center; font-size: 0.8rem; color: #000; }
+    .n-links { display: flex; gap: 2.2rem; list-style: none; }
+    .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: 0.3s; }
+    .n-links a:hover, .n-links a.active { color: var(--accent); }
+
+    /* --- MARQUEE --- */
+    .marquee-wrap {
+      width: 100%; overflow: hidden;
+      border-top: 1px solid var(--glass-b);
+      border-bottom: 1px solid var(--glass-b);
+      background: rgba(0, 255, 149, 0.02);
+      padding: 1.5rem 0;
+      position: relative; z-index: 10;
+    }
+    .marquee-content {
+      display: flex;
+      gap: 4rem;
+      width: max-content;
+      animation: scroll 25s linear infinite;
+    }
+    .marquee-item {
+      font-family: 'Clash Display';
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .marquee-item span { color: var(--accent); font-size: 1.5rem; }
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* --- SECTIONS --- */
+    .section-wrap { position: relative; z-index: 10; padding: 8rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .s-tag { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.75rem; margin-bottom: 1rem; }
+    
+    /* --- HERO --- */
+    #hero {
+      position: relative; z-index: 10; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 0 1.5rem;
+    }
+    .hero-title { font-family: 'Clash Display'; font-size: clamp(3.2rem, 9vw, 7rem); font-weight: 800; line-height: 0.95; letter-spacing: -3px; margin-bottom: 1.5rem; }
+    .alt-italic { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--accent); }
+    .title-grad { background: linear-gradient(105deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* --- FEATURES --- */
+    .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
+    .feat-card {
+      background: var(--glass); border: 1px solid var(--glass-b); padding: 3rem; border-radius: var(--radius);
+      transition: 0.4s; backdrop-filter: blur(10px);
+    }
+    .feat-card:hover { border-color: var(--accent); background: rgba(0, 255, 149, 0.03); transform: translateY(-10px); }
+    .f-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+    .feat-card h3 { font-family: 'Clash Display'; font-size: 1.5rem; margin-bottom: 1rem; color: #fff; }
+    .feat-card p { color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
+
+    /* --- STATS --- */
+    .stats-inner {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px;
+      background: var(--glass-b); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--glass-b);
+      margin-top: 4rem;
+    }
+    .stat { background: var(--bg); padding: 3.5rem 1rem; text-align: center; transition: 0.3s; }
+    .stat:hover { background: var(--bg2); }
+    .stat-n { font-family: 'Clash Display'; font-size: 3.5rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+
+    /* --- REVIEWS --- */
+    .rev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 4rem; }
+    .rev-card {
+      background: var(--glass); border: 1px solid var(--glass-b); padding: 2.5rem; border-radius: var(--radius);
+      backdrop-filter: blur(10px); animation: float 6s ease-in-out infinite alternate;
+    }
+    @keyframes float { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+
+    .btn-mag {
+      background: var(--accent); color: #000; padding: 1rem 2.5rem; border-radius: 100px;
+      text-decoration: none; font-weight: 700; box-shadow: 0 0 30px var(--glow-a); transition: 0.4s; border: none; cursor: none;
+    }
+    .btn-mag:hover { background: #fff; transform: translateY(-3px); }
+
+    @media (max-width: 900px) {
+      .n-links { display: none; }
+      .feat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+  <div id="aurora"><div class="blob blob-1"></div></div>
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="mainNav">
+    <a href="#" class="n-logo"><div class="n-logo-mark">B</div> BNL</a>
+    <ul class="n-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="btn-mag" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Get Started</button>
+  </nav>
+
+  <section id="hero">
+    <div class="eyebrow">✦ Trusted by 50,000+ users</div>
+    <h1 class="hero-title">
+      Fast Access. Real Results..<br>
+      <span class="alt-italic">just a </span><span class="title-grad">tap away.</span>
+    </h1>
+    <a href="#features" class="btn-mag">Download BNL</a>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-content">
+      <div class="marquee-item"><span>✦</span> Digital Marketing</div>
+      <div class="marquee-item"><span>✦</span> Web Development</div>
+      <div class="marquee-item"><span>✦</span> Cyber Security</div>
+      <div class="marquee-item"><span>✦</span> ui/ux Design</div>
+      <div class="marquee-item"><span>✦</span> App development</div>
+      <div class="marquee-item"><span>✦</span> 500+ download</div>
+      <div class="marquee-item"><span>✦</span>  Security</div>
+      <div class="marquee-item"><span>✦</span> 200+ Partners</div>
+      <div class="marquee-item"><span>✦</span> 99.9% Uptime</div>
+      <div class="marquee-item"><span>✦</span> Download BNL </div>
+    </div>
+  </div>
+
+  <section class="section-wrap" id="features">
+    <div class="s-tag">Our Services</div>
+    <h2 style="font-family: 'Clash Display'; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem;">Built for <span class="alt-italic">Modern Scale.</span></h2>
+    
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="f-icon">🗺️</div>
+        <h3>Markating</h3>
+        <p>Instantly surface services closest to you with real-time location intelligence. No broad searches, just local excellence.</p>
+      </div>
+      <div class="feat-card">
+        <div class="f-icon">🔐</div>
+        <h3>Cyber security</h3>
+        <p>Military-grade encryption and biometric security for every interaction. Your data stays yours, guaranteed.</p>
+      </div>
+      <div class="feat-card">
+        <div class="f-icon">⚡</div>
+        <h3>Web developing</h3>
+        <p>Execution in a single interaction. No friction, no switching apps, no complex forms. Just results.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-wrap">
+    <div class="s-tag">Real-time Impact</div>
+    <div class="stats-inner">
+      <div class="stat"><div class="stat-n">50K+</div><div style="color:var(--muted)">Active Users</div></div>
+      <div class="stat"><div class="stat-n">200+</div><div style="color:var(--muted)">Trusted Partners</div></div>
+      <div class="stat"><div class="stat-n">99.9%</div><div style="color:var(--muted)">System Uptime</div></div>
+      <div class="stat"><div class="stat-n">4.9★</div><div style="color:var(--muted)">Average Rating</div></div>
+    </div>
+  </div>
+
+  <section class="section-wrap">
+    <div class="s-tag">Feedback</div>
+    <h2 style="font-family: 'Clash Display'; font-size: 3rem;">User <span class="alt-italic">Reviews</span></h2>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <p style="margin-bottom:1.5rem; font-size:1.1rem;">"BNL has completely shifted how I access local services. The interface is breathtakingly fast."</p>
+        <strong>Marcus Chen</strong><br><small style="color:var(--muted)">⭐⭐⭐⭐⭐</small>
+      </div>
+      <div class="rev-card" style="animation-delay: 1s;">
+        <p style="margin-bottom:1.5rem; font-size:1.1rem;">"The security features give me real peace of mind. Finally, an app that values privacy."</p>
+        <strong>Sarah Jenkins</strong><br><small style="color:var(--muted)">⭐⭐⭐⭐⭐</small>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Cursor
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    document.addEventListener('mousemove', (e) => {
+      cur.style.left = ring.style.left = e.clientX + 'px';
+      cur.style.top = ring.style.top = e.clientY + 'px';
+    });
+
+    // Nav Scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Three.js Background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const geometry = new THREE.IcosahedronGeometry(15, 2);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff95, wireframe: true, transparent: true, opacity: 0.15 });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+    camera.position.z = 30;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      sphere.rotation.y += 0.0012;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

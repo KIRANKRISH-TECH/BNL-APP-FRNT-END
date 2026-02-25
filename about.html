@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | BNL • Built for Modern Scale</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700,800&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:italic&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #020604;
+      --bg2:     #050d0a;
+      --ink:     #e0f7f0;
+      --muted:   rgba(160, 255, 220, 0.45); 
+      --accent:  #00ff95;
+      --accent2: #00e5ff;
+      --glass:   rgba(255, 255, 255, 0.02);
+      --glass-b: rgba(0, 255, 149, 0.15); 
+      --glow-a:  rgba(0, 255, 149, 0.25);
+      --radius:  24px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--ink);
+      font-family: 'Cabinet Grotesk', sans-serif;
+      overflow-x: hidden; cursor: none;
+    }
+
+    /* --- CURSOR --- */
+    #cur { position: fixed; z-index: 9999; pointer-events: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+    #cur-ring { position: fixed; z-index: 9998; pointer-events: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--glow-a); transform: translate(-50%,-50%); transition: width .3s, height .3s, border-color .3s; }
+
+    /* --- BACKGROUND --- */
+    #bg-canvas { position: fixed; inset: 0; z-index: 1; opacity: 0.3; pointer-events: none; }
+    #aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.3; animation: drift 20s infinite alternate; }
+    .blob-1 { width: 600px; height: 600px; background: var(--glow-a); top: -10%; left: -10%; }
+    @keyframes drift { from { transform: translate(0,0); } to { transform: translate(60px, 40px); } }
+
+    /* --- NAV --- */
+    nav#mainNav { position: fixed; top: 0; width: 100%; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; transition: 0.4s; }
+    nav#mainNav.scrolled { background: rgba(2, 6, 4, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-b); }
+    .n-logo { font-family: 'Clash Display'; font-weight: 700; font-size: 1.5rem; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .n-logo-mark { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #008f52); border-radius: 8px; display: grid; place-items: center; font-size: 0.8rem; color: #000; }
+    .n-links { display: flex; gap: 2.2rem; list-style: none; }
+    .n-links a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: 0.3s; }
+    .n-links a:hover, .n-links a.active { color: var(--accent); }
+
+    /* --- HERO --- */
+    #hero { position: relative; z-index: 10; min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 1.5rem; }
+    .eyebrow { border: 1px solid var(--glass-b); padding: 0.5rem 1.2rem; border-radius: 100px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); background: rgba(0, 255, 149, 0.05); margin-bottom: 2rem; }
+    .hero-title { font-family: 'Clash Display'; font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; line-height: 0.95; letter-spacing: -2px; }
+    .alt-italic { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--accent); }
+    
+    /* --- SECTIONS --- */
+    .section-wrap { position: relative; z-index: 10; padding: 6rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .s-tag { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.75rem; margin-bottom: 1rem; }
+    
+    /* --- VALUES CARDS --- */
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .v-card { background: var(--glass); border: 1px solid var(--glass-b); padding: 2.5rem; border-radius: var(--radius); transition: 0.4s; }
+    .v-card:hover { border-color: var(--accent); background: rgba(0, 255, 149, 0.03); }
+    .v-card h3 { font-family: 'Clash Display'; font-size: 1.4rem; margin-bottom: 1rem; color: #fff; }
+    .v-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* --- TEAM SECTION --- */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .member { text-align: center; }
+    .member-img { width: 100%; aspect-ratio: 1; background: var(--bg2); border: 1px solid var(--glass-b); border-radius: 50%; overflow: hidden; margin-bottom: 1.5rem; transition: 0.5s; position: relative; }
+    .member-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 0.5s; }
+    .member:hover .member-img img { filter: grayscale(0); transform: scale(1.1); }
+    .member:hover .member-img { border-color: var(--accent); box-shadow: 0 0 20px var(--glow-a); }
+
+    /* --- ANIMATION --- */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    footer { padding: 4rem 1.5rem; text-align: center; border-top: 1px solid var(--glass-b); margin-top: 4rem; position: relative; z-index: 10; }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+  <div id="aurora"><div class="blob blob-1"></div></div>
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="mainNav">
+    <a href="index.html" class="n-logo"><div class="n-logo-mark">B</div> BNL</a>
+    <ul class="n-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button style="background:var(--accent); color:#000; border:none; padding:0.6rem 1.5rem; border-radius:100px; font-weight:700; cursor: none;">Join Us</button>
+  </nav>
+
+  <section id="hero">
+    <div class="eyebrow">The BNL Manifesto</div>
+    <h1 class="hero-title">
+      We build for <br>
+      <span class="alt-italic">human </span> <span style="background: linear-gradient(90deg, #00ff95, #00e5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">connection.</span>
+    </h1>
+  </section>
+
+  <div class="section-wrap">
+    <div class="about-grid" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:4rem; align-items:center;">
+      <div class="about-text reveal">
+        <div class="s-tag">BNL</div>
+        <h2 style="font-family:'Clash Display'; font-size:3rem; margin-bottom:1.5rem;">BNL APP <span class="alt-italic">FOUNDER</span></h2>
+        <p style="color:var(--muted); line-height:1.8; margin-bottom:1.5rem; font-size:1.1rem;">BNL was founded on the belief that technology should disappear into the background. We don't just connect you to services; we bridge the gap between your needs and the local experts who fulfill them.</p>
+        <p style="color:var(--muted); line-height:1.8;">In a world of noise, we provide the signal. Hyper-local, zero-friction, and built with an emerald-standard for security.</p>
+      </div>
+      <div class="reveal" style="border-radius: var(--radius); overflow:hidden; border:1px solid var(--glass-b); height:400px; background:var(--bg2);">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000" style="width:100%; height:100%; object-fit:cover; opacity:0.6;">
+      </div>
+    </div>
+  </div>
+
+  <section class="section-wrap reveal">
+    <div class="s-tag">Our Philosophy</div>
+    <h2 style="font-family:'Clash Display'; font-size:2.5rem;">The <span class="alt-italic">Core</span> Pillars</h2>
+    <div class="values-grid">
+      <div class="v-card">
+        <h3>Privacy by Design</h3>
+        <p>Your data never leaves your device unencrypted. We use zero-knowledge proofs to verify identity without storing personal details.</p>
+      </div>
+      <div class="v-card">
+        <h3>Radical Transparency</h3>
+        <p>No hidden fees, no algorithm bias. We show you exactly why a service is recommended and how our partners are vetted.</p>
+      </div>
+      <div class="v-card">
+        <h3>Eco-Systemic</h3>
+        <p>We prioritize sustainable local growth. Every interaction on BNL is designed to keep wealth within the community.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal">
+    <div class="s-tag">The Collective</div>
+    <h2 style="font-family:'Clash Display'; font-size:2.5rem;">Founding <span class="alt-italic">Architects</span></h2>
+    <div class="team-grid">
+      <div class="member">
+        <div class="member-img"><img src="" alt="Founder"></div>
+        <h4 style="font-family:'Clash Display';">Elias Thorne</h4>
+        <p style="color:var(--accent); font-size:0.8rem; text-transform:uppercase;">Chief Architect</p>
+      </div>
+      <div class="member">
+        <div class="member-img"><img src="" alt="Founder"></div>
+        <h4 style="font-family:'Clash Display';">Sienna Vance</h4>
+        <p style="color:var(--accent); font-size:0.8rem; text-transform:uppercase;">Lead Engineering</p>
+      </div>
+      <div class="member">
+        <div class="member-img"><img src="" alt="Founder"></div>
+        <h4 style="font-family:'Clash Display';">Marcus Wei</h4>
+        <p style="color:var(--accent); font-size:0.8rem; text-transform:uppercase;">Security Ops</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- <div class="section-wrap">
+    <div class="stats-inner reveal">
+      <div class="stat"><div class="stat-n">2026</div><div style="color:var(--muted)">Est. Year</div></div>
+      <div class="stat"><div class="stat-n">124k</div><div style="color:var(--muted)">Lines of Code</div></div>
+      <div class="stat"><div class="stat-n">100%</div><div style="color:var(--muted)">Decentralized</div></div>
+    </div>
+  </div> -->
+
+  <footer>
+    <p style="color:var(--muted); font-size:0.8rem;">© 2026 BNL  • Built for the future of neighborhood scale.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    document.addEventListener('mousemove', (e) => {
+      cur.style.left = ring.style.left = e.clientX + 'px';
+      cur.style.top = ring.style.top = e.clientY + 'px';
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('on'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const geometry = new THREE.IcosahedronGeometry(15, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff95, wireframe: true, transparent: true, opacity: 0.08 });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+    camera.position.z = 30;
+    function animate() { requestAnimationFrame(animate); sphere.rotation.y += 0.001; renderer.render(scene, camera); }
+    animate();
+  </script>
+</body>
+</html>
